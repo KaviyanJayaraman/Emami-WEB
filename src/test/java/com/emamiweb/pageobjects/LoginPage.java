@@ -22,6 +22,9 @@ public class LoginPage {
 	 @FindBy(name = "Password")
 	 WebElement txtPassword;
 	 
+	 @FindBy(name = "CaptchaInputText")
+	 WebElement Captcha;
+	 
 	 @FindBy(id = "btnLogin")
 	 WebElement btnLogin;
 	 
@@ -33,6 +36,11 @@ public class LoginPage {
 	 public void setPassword(String pwd)
 	 {
 		 txtPassword.sendKeys(pwd);
+	 }
+	 
+	 public void captchaclick()
+	 {
+		 Captcha.click();
 	 }
 	 
 	 public void clicksubmit()
