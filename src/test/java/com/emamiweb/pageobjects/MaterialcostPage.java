@@ -14,7 +14,8 @@ public class MaterialcostPage
 {
     WebDriver ldriver;
     String Vertical;
-    String Oil_Type;
+    String Oil_Type1;
+    String Oil_Type2;
     String Plant;
     String RateMT;
     @FindBy(xpath = "//span[text()='Pricings']")
@@ -37,6 +38,8 @@ public class MaterialcostPage
     WebElement OilType_listbox;
     @FindBy(xpath = "//li[text()='Palm']")
     WebElement Palmselection;
+    @FindBy(xpath = "//li[text()='RBD PALM OIL']")
+    WebElement RBDPalmselection;
     @FindBy(xpath = "//span[text()='Select Plant']")
     WebElement Select_Plant;
     @FindBy(xpath = "//li[text()='Haldia']")
@@ -62,7 +65,8 @@ public class MaterialcostPage
     
     public MaterialcostPage(WebDriver rdriver) {
         Vertical = "HBC";
-        Oil_Type = "Palm";
+        Oil_Type1 = "Palm" ;
+        Oil_Type2 = "RBD PALM OIL";
         Plant = "Haldia";
         RateMT = "100";
         ldriver = rdriver;
@@ -80,10 +84,24 @@ public class MaterialcostPage
         System.out.println("MAterial cost clicked");
     }
     
-    public void DropdownSelection() throws InterruptedException {
+    public void LooseDropdownSelection() throws InterruptedException {
+    	 System.out.println("Performing Loose droop down selection");
+         Thread.sleep(3000);
+         WebDriverWait wait = new WebDriverWait(ldriver, 30);
+    	 wait.until((Function)ExpectedConditions.visibilityOfElementLocated(By.xpath("//li[text()='RBD PALM OIL']")));
+         RBDPalmselection.click();
+         wait.until((Function)ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[text()='Select Plant']")));
+         Select_Plant.click();
+         wait.until((Function)ExpectedConditions.visibilityOfElementLocated(By.xpath("//li[text()='Haldia']")));
+         Haldiaselection.click();
+         btnSave.click();
+    	
+    }
+    
+    public void AdminDropdownSelection() throws InterruptedException {
         System.out.println("Performing droop down selection");
+        Thread.sleep(3000);
         Select_Vertical.click();
-        //((WebElement)new WebDriverWait(ldriver, 20).until((Function)ExpectedConditions.elementToBeClickable(By.cssSelector("li.k-item[data-offset-index='0']")))).click();
         new WebDriverWait(ldriver, 20).until(ExpectedConditions.elementToBeClickable(By.cssSelector("li.k-item[data-offset-index='0']"))).click();
         WebDriverWait wait = new WebDriverWait(ldriver, 30);
         wait.until((Function)ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[text()='Select Oil Type']")));
@@ -99,11 +117,11 @@ public class MaterialcostPage
     
     public void MaterialCostListvalll() throws InterruptedException {
         System.out.println("MaterialCostListvalll");
-        WebDriverWait wait = new WebDriverWait(this.ldriver, 30);
+        WebDriverWait wait = new WebDriverWait(ldriver, 30);
         wait.until((Function)ExpectedConditions.visibilityOfElementLocated(By.xpath("//label[text()='Show Filter']")));
         checkboxselection.click();
         verticalinputselection.sendKeys(Vertical );
-        oiltypeinputselection.sendKeys(Oil_Type );
+        oiltypeinputselection.sendKeys(Oil_Type1);
         plantinputselection.sendKeys(Plant);
         wait.until((Function)ExpectedConditions.visibilityOfElementLocated(By.xpath("//li[text()='Haldia']")));
         Haldiaselection.click();
